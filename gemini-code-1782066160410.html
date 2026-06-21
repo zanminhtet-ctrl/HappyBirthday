@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Princess! 🎂💖</title>
+    <style>
+        /* --- Core Setup --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: #fff1f2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transition: background 1.5s ease;
+        }
+
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #fbcfe8;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #be185d;
+        }
+
+        /* --- STAGE 1: Romantic Cake Animation --- */
+        #cakeStage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cake-container {
+            width: 250px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .cake-layer {
+            width: var(--w);
+            height: var(--h);
+            background: var(--bg);
+            border-radius: 20px 20px 15px 15px;
+            box-shadow: inset 0 -8px rgba(0,0,0,0.08), 0 10px 20px var(--shadow);
+            opacity: 0;
+            transform: translateY(-600px);
+            animation: fallIn 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.15) var(--delay) forwards;
+            margin-top: -5px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .candle {
+            width: 10px;
+            height: 50px;
+            background: linear-gradient(to right, #ff7675, #fd79a8);
+            border-radius: 5px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-500px);
+            animation: fallIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.2) 2.6s forwards;
+            cursor: pointer;
+            z-index: 12;
+        }
+
+        .flame {
+            width: 16px;
+            height: 26px;
+            background: radial-gradient(circle at bottom, #fffa65, #ff9f43, #ff3838);
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -30px;
+            left: -3px;
+            box-shadow: 0 0 20px #ff9f43, 0 0 40px #ff3838;
+            animation: romanticFlicker 0.15s ease-in-out infinite alternate;
+        }
+
+        .hbd-text {
+            margin-top: 30px;
+            color: #be185d;
+            font-size: 1.6rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.5s forwards;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        @keyframes romanticFlicker {
+            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+        }
+        @keyframes fallIn { to { transform: translateY(0); opacity: 1; } }
+        @keyframes popIn { to { transform: scale(1); opacity: 1; } }
+
+        /* --- STAGE 2: Real Two-Way 3D Book --- */
+        #bookStage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 15;
+            perspective: 2000px; 
+        }
+
+        body.cute-bg {
+            background: linear-gradient(135deg, #ffe4e6 0%, #fff0f3 50%, #ffe4e6 100%);
+        }
+
+        .book-3d {
+            width: 95%;
+            max-width: 760px;
+            height: 480px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(6deg); 
+        }
+
+        /* Hardcover Base */
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #be185d, #9d174d);
+            border-radius: 14px;
+            box-shadow: 0 35px 70px rgba(157, 23, 77, 0.25), inset 0 2px 6px rgba(255,255,255,0.2);
+            transform: translateZ(-15px);
+        }
+
+        /* ပုံသေ Perfect Book Shape - ညင်သာသော အလင်းအမှောင်စနစ် */
+        .book-spine-shadow {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%) translateZ(20px);
+            width: 80px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.0), rgba(0,0,0,0.02) 40%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.02) 60%, rgba(0,0,0,0.0));
+            pointer-events: none;
+            z-index: 500;
+        }
+
+        /* Pages Container */
+        .pages-container {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            right: 0;
+            top: 0;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+        }
+
+        /* Paper Sheet */
+        .paper-sheet {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .paper-sheet.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        /* Page Face Structure & Shape */
+        .page-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 25px 25px;
+            backface-visibility: hidden; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 📄 ညာဘက်မျက်နှာပြင် */
+        .page-front {
+            border-radius: 0 12px 12px 0;
+            z-index: 2;
+            background: linear-gradient(to right, #fbf9f4 0%, #fffdfa 4%, #fffdfa 96%, #f5f2e9 100%);
+            box-shadow: inset 8px 0 15px rgba(0,0,0,0.015), 4px 2px 10px rgba(0,0,0,0.04);
+        }
+
+        /* 📄 ဘယ်ဘက်မျက်နှာပြင် */
+        .page-back {
+            transform: rotateY(180deg); 
+            border-radius: 12px 0 0 12px;
+            z-index: 1;
+            background: linear-gradient(to left, #fbf9f4 0%, #fffdfa 4%, #fffdfa 96%, #f5f2e9 100%);
+            box-shadow: inset -8px 0 15px rgba(0,0,0,0.015), -4px 2px 10px rgba(0,0,0,0.04);
+        }
+
+        /* Image Sizing & Control */
+        .page-img {
+            width: 100%;
+            max-width: 200px;
+            height: 155px;
+            object-fit: cover; 
+            border-radius: 10px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+            margin-bottom: 15px;
+            border: 3px solid #ffe4e6;
+            background-color: #f3f4f6;
+        }
+
+        .page-face p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #4c0519;
+            font-weight: 500;
+            padding: 0 5px;
+        }
+
+        /* မြားခလုတ်နေရာ */
+        .arrow-container {
+            position: absolute;
+            bottom: 20px;
+            right: 25px; 
+            display: flex;
+            gap: 12px;
+            z-index: 200;
+        }
+
+        .page-back .arrow-container {
+            left: 25px; 
+            right: auto;
+        }
+
+        .arrow-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fff, #f3f4f6);
+            border: 1px solid #fbcfe8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+        }
+        .arrow-btn:active {
+            transform: scale(0.9);
+            background: #ffe4e6;
+        }
+        .arrow-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #db2777;
+        }
+
+        .page-num {
+            position: absolute;
+            bottom: 26px;
+            font-size: 0.8rem;
+            color: #b91c1c;
+            font-weight: bold;
+            opacity: 0.6;
+        }
+        .page-front .page-num { left: 30px; } 
+        .page-back .page-num { right: 30px; }
+
+        .heart-drop {
+            position: absolute;
+            pointer-events: none;
+            animation: drop linear forwards;
+            z-index: 5;
+        }
+        @keyframes drop {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body onclick="initAudio()">
+
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="blowSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-air-puff-or-gasp-2358.wav" type="audio/wav">
+    </audio>
+    <audio id="flipSound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-turning-page-of-book-1511.wav" type="audio/wav">
+    </audio>
+
+    <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic(event)">🎵 Music: Off</button>
+
+    <div id="cakeStage">
+        <div class="cake-container">
+            <div class="candle" id="candle">
+                <div class="flame" id="flame"></div>
+            </div>
+            <div class="cake-layer" style="--w: 130px; --h: 40px; --bg: #fef08a; --shadow: rgba(254,240,138,0.3); --delay: 1.8s;"></div>
+            <div class="cake-layer" style="--w: 180px; --h: 50px; --bg: #fbcfe8; --shadow: rgba(251,207,232,0.4); --delay: 1.0s;"></div>
+            <div class="cake-layer" style="--w: 220px; --h: 60px; --bg: #ec4899; --shadow: rgba(236,72,153,0.5); --delay: 0.2s;"></div>
+        </div>
+        <div class="hbd-text">🎂 Happy Birthday ပါ သိမ့် 🎂<br><span style="font-size:0.95rem; font-weight:normal; color:#e11d48;">(ဖယောင်းတိုင်မီးလေးကို နှိပ်ပြီး မှုတ်ပေးပါဦး ကလေးလေး 🥺)</span></div>
+    </div>
+
+    <div id="bookStage">
+        <div class="book-3d">
+            <div class="book-cover"></div>
+            <div class="book-spine-shadow"></div>
+            
+            <div class="pages-container" id="bookShell">
+                
+                <div class="paper-sheet" id="sheet2">
+                    <div class="page-face page-front">
+                        <img src="https://i.ibb.co/Pzzn9W1G/Whats-App-Image-2026-06-21-at-20-21-39-e4d0b168.jpg" class="page-img">
+                        <p>သိမ့်ရဲ့ စိတ်ကောက်တာလေးတွေ၊ ကလေးဆန်တဲ့ အပြုအမူလေးတွေက ကိုကို့အတွက်တော့ အရမ်းမြတ်နိုးရတဲ့ အရာလေးတွေချည်းပါပဲ ကွယ်။ 🌹</p>
+                        
+                        <div class="arrow-container">
+                            <div class="arrow-btn" onclick="goNext(2)">
+                                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                            </div>
+                        </div>
+                        <div class="page-num">Page - 3</div>
+                    </div>
+                    <div class="page-face page-back">
+                        <img src="https://i.ibb.co/7NL8ctFY/Whats-App-Image-2026-06-21-at-20-21-40-7ec0a671.jpg" class="page-img">
+                        <p>ဒီကမ္ဘာမှာ ကိုကိုက သိမ့်ကို အလိုအပ်ဆုံးနဲ့ အတန်ဖိုးထားရဆုံးမို့ အမြဲတမ်း ကိုကို့အနားမှာ ရှိပေးပါနော်။ ကိုကိုကလည်း သိမ့်အနားမှာ အမြဲတမ်းရှိနေတယ်နော်။ မွေးနေ့မှာ အပျော်ရွှင်ဆုံးဖြစ်ပါစေနော် ကိုကိုချစ်ရတဲ့ အမျိုးသမီးလေး ခင်ဗျာ 🧸💞</p>
+                        
+                        <div class="arrow-container">
+                            <div class="arrow-btn" onclick="goPrev(2)">
+                                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                            </div>
+                        </div>
+                        <div class="page-num">Page - 4</div>
+                    </div>
+                </div>
+
+                <div class="paper-sheet" id="sheet1">
+                    <div class="page-face page-front">
+                        <img src="https://i.ibb.co/h6CpZgP/Whats-App-Image-2026-06-21-at-20-21-38-038bd502.jpg" class="page-img">
+                        <p>ချစ်ရပါသော သိမ့်... <br>ဒီနေ့ကျရောက်တဲ့ မွေးနေ့ကစပြီး နောင်နှစ်ပေါင်းများစွာတိုင်အောင် ကိုကို့ဘဝထဲမှာရော ကိုကို့အနားနားမှာရော ရှိနေပေးပါဦးနော်။ 🥰✨</p>
+                        
+                        <div class="arrow-container">
+                            <div class="arrow-btn" onclick="goNext(1)">
+                                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                            </div>
+                        </div>
+                        <div class="page-num">Page - 1</div>
+                    </div>
+                    <div class="page-face page-back">
+                        <img src="https://i.ibb.co/V0Bgt55F/Whats-App-Image-2026-06-21-at-20-21-39-ccbfd16d.jpg" class="page-img">
+                        <p>သိမ့်နဲ့ စတွေ့ခဲ့တဲ့နေ့ကစပြီး ကိုကို့ရဲ့နေ့ရက်တိုင်းဟာ ပိုပြီးအဓိပ္ပာယ်တွေလေးနက်လာခဲ့သလို၊ သိမ့်လေးကလည်း ကိုကို့ရဲ့ တစ်ခုတည်းသော ကမ္ဘာငယ်လေးဖြစ်လာခဲ့တယ်။ 🌍</p>
+                        
+                        <div class="arrow-container">
+                            <div class="arrow-btn" onclick="goPrev(1)">
+                                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                            </div>
+                        </div>
+                        <div class="page-num">Page - 2</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const candle = document.getElementById('candle');
+        const flame = document.getElementById('flame');
+        const cakeStage = document.getElementById('cakeStage');
+        const bookStage = document.getElementById('bookStage');
+        
+        const bgMusic = document.getElementById('bgMusic');
+        const blowSound = document.getElementById('blowSound');
+        const flipSound = document.getElementById('flipSound');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        
+        let audioInitialized = false;
+
+        function initAudio() {
+            if (!audioInitialized) {
+                bgMusic.play().then(() => {
+                    musicToggleBtn.innerText = "🎵 Music: On";
+                    audioInitialized = true;
+                }).catch(err => console.log("Audio online"));
+            }
+        }
+
+        function toggleMusic(event) {
+            event.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggleBtn.innerText = "🎵 Music: On";
+            } else {
+                bgMusic.pause();
+                musicToggleBtn.innerText = "🎵 Music: Off";
+            }
+        }
+
+        candle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            flame.style.display = 'none'; 
+            blowSound.play(); 
+            
+            setTimeout(() => {
+                cakeStage.classList.add('hidden');
+                document.body.classList.add('cute-bg'); 
+                bookStage.style.display = 'flex';       
+                updateLayers(); 
+                startHeartRain();                       
+            }, 600);
+        });
+
+        let currentSheetState = 1; 
+
+        function updateLayers() {
+            const s1 = document.getElementById('sheet1');
+            const s2 = document.getElementById('sheet2');
+
+            if (currentSheetState === 1) {
+                s1.style.zIndex = "10";
+                s1.style.pointerEvents = "auto";
+                s2.style.zIndex = "5";
+                s2.style.pointerEvents = "none";
+            } else if (currentSheetState === 2) {
+                s1.style.zIndex = "5";
+                s1.style.pointerEvents = "auto"; 
+                s2.style.zIndex = "10";
+                s2.style.pointerEvents = "auto";
+            }
+        }
+
+        function goNext(sheetNum) {
+            flipSound.currentTime = 0;
+            flipSound.play();
+            document.getElementById(`sheet${sheetNum}`).classList.add('flipped');
+            currentSheetState = sheetNum + 1;
+            updateLayers();
+        }
+
+        function goPrev(sheetNum) {
+            flipSound.currentTime = 0;
+            flipSound.play();
+            document.getElementById(`sheet${sheetNum}`).classList.remove('flipped');
+            currentSheetState = sheetNum;
+            updateLayers();
+        }
+
+        function startHeartRain() {
+            const emojis = ['❤️', '💖', '🌸', '✨', '🎈'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-drop';
+                heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+                heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
